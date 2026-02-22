@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ddbs.utb/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PaymentProcessorService" targetNamespace="http://ddbs.utb/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ddbs.utb/" elementFormDefault="unqualified" targetNamespace="http://ddbs.utb/" version="1.0">
+
+  <xs:element name="makePayment" type="tns:makePayment"/>
+
+  <xs:element name="makePaymentResponse" type="tns:makePaymentResponse"/>
+
+  <xs:complexType name="makePayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaymentRequest" type="tns:PaymentProcessingRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PaymentProcessingRequest">
+    <xs:sequence>
+      <xs:element name="creditCardInfo" type="tns:CreditCardInfo"/>
+    </xs:sequence>
+    <xs:attribute name="amount" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CreditCardInfo">
+    <xs:sequence>
+      <xs:element name="cardNumber" type="xs:string"/>
+      <xs:element name="expiryDate" type="xs:dateTime"/>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="lastName" type="xs:string"/>
+      <xs:element name="secCode" type="xs:string"/>
+      <xs:element name="address" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="makePaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaymentResponse" type="tns:PaymentProcessingResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PaymentProcessingResponse">
+    <xs:sequence>
+      <xs:element name="result" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="makePaymentResponse">
+    <wsdl:part element="tns:makePaymentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="makePayment">
+    <wsdl:part element="tns:makePayment" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PaymentProcessorService">
+    <wsdl:operation name="makePayment">
+      <wsdl:input message="tns:makePayment" name="makePayment">
+    </wsdl:input>
+      <wsdl:output message="tns:makePaymentResponse" name="makePaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentProcessorServiceSoapBinding" type="tns:PaymentProcessorService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="makePayment">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="makePayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="makePaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentProcessorService">
+    <wsdl:port binding="tns:PaymentProcessorServiceSoapBinding" name="PaymentProcessorServicePort">
+      <soap:address location="http://localhost:8080/HelloWorldCXF/services/paymentProcessor"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
