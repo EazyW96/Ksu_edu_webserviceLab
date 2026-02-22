@@ -1,0 +1,18 @@
+# Build folders
+target/
+
+# Eclipse metadata and settings
+.settings/
+.project
+.classpath
+.metadata/
+
+# Compiled Java classes
+*.class
+
+# Mac OS specific
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
