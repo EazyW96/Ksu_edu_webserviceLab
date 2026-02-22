@@ -1,7 +1,8 @@
-<%@ page import="java.time.LocalDateTime" %>
 <html>
 <body>
-    <h2>Hello World!</h2>
-    <h2>Current time is <%= LocalDateTime.now() %></h2>
+	<h2>
+		Welcome to payment application. Web Service: - <a href="services">Available
+			Services</a>
+	</h2>
 </body>
 </html>
